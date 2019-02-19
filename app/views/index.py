@@ -1,15 +1,10 @@
 from flask import (
     render_template,
     Blueprint,
-    Response,
-    flash,
-    redirect,
-    url_for,
-    request,
-    current_app
 )
 from flask_login import login_required
-import requests
+
+from app.models.bcs import Service
 
 blueprint = Blueprint('index', __name__)
 
@@ -17,4 +12,6 @@ blueprint = Blueprint('index', __name__)
 @blueprint.route('/', methods=['GET', 'POST'])
 @login_required
 def index():
-    return render_template("index.jinja.html")
+    services = Service.query.all()
+    return render_template("index.jinja.html",
+                           services=services)

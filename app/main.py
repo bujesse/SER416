@@ -55,9 +55,10 @@ def create_app(env=None):
                 app.jinja_env.filters[ext_name[8:]] = ext_fn
 
     # Register views
-    from app.views import user, index
+    from app.views import user, index, service
     app.register_blueprint(index.blueprint, url_prefix='/')
     app.register_blueprint(user.blueprint, url_prefix='/user')
+    app.register_blueprint(service.blueprint, url_prefix='/service')
 
     call_on_app_callbacks(app)
     apps.append(app)

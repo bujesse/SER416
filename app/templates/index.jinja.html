@@ -1,5 +1,35 @@
 {% extends "base.jinja.html" %}
 
 {% block main %}
-    Hello World
+    <div class="row">
+        <h1 class="col-md-6">Services</h1><br>
+        <a href="{{ url_for('service.create') }}" class="btn btn-info" role="button">Create Service</a>
+    </div>
+
+    <table class="table table-bordered table-striped media-table">
+        <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Location</th>
+            <th scope="col">Type</th>
+            <th scope="col">Workers Needed</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for service in services %}
+            <tr>
+                <td>{{ service.name }}</td>
+                <td>{{ service.description }}</td>
+                <td>{{ service.location }}</td>
+                <td>{{ service.type }}</td>
+                <td>{{ service.workers_needed }}</td>
+                <td>{{ service.start_date.format('YYYY-MM-DD') }}</td>
+                <td>{{ service.end_date.format('YYYY-MM-DD') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
