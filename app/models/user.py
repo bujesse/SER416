@@ -1,4 +1,5 @@
 from app.main import db
+from app.models.bcs import Service, ClientService, WorkerService
 
 
 class User(db.Model):
@@ -8,9 +9,12 @@ class User(db.Model):
     password = db.Column(db.UnicodeText, nullable=False)
     first_name = db.Column(db.UnicodeText, nullable=False)
     last_name = db.Column(db.UnicodeText, nullable=False)
-    title = db.Column(db.UnicodeText, nullable=False)
+    role = db.Column(db.UnicodeText, nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     enabled = db.Column(db.Boolean(), nullable=False, default=True, server_default='1')
+
+    client_services = db.relationship('ClientService', cascade='all, delete-orphan', backref='users')
+    worker_services = db.relationship('WorkerService', cascade='all, delete-orphan', backref='users')
 
     @property
     def full_name(self):
