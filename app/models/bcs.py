@@ -6,9 +6,9 @@ from sqlalchemy_utils import ArrowType
 class Service(db.Model):
     __tablename__ = 'services'
     id = db.Column(db.BigInteger, primary_key=True)
-    name = db.Column(db.String(255), unique=True, nullable=False)
-    description = db.Column(db.String(255), unique=True, nullable=False)
-    location = db.Column(db.String(255), unique=True, nullable=False)
+    name = db.Column(db.String(255), unique=False, nullable=False)
+    description = db.Column(db.String(255), unique=False, nullable=False)
+    location = db.Column(db.String(255), unique=False, nullable=False)
     start_date = db.Column(ArrowType, server_default=func.now(), index=True)
     end_date = db.Column(ArrowType, server_default=func.now(), index=True)
     type = db.Column(db.String(255), unique=False, nullable=True)

@@ -3,8 +3,8 @@
 {% block main %}
     <div class="row">
         <h1 class="col-md-6">Services</h1><br>
-        <a href="{{ url_for('service.create') }}" class="btn btn-info" role="button">Create Service</a>
     </div>
+    <a href="{{ url_for('service.create') }}" class="btn btn-info" style="float: right;" role="button">Create Service</a>
 
     <table class="table table-bordered table-striped media-table">
         <thead>
@@ -14,8 +14,10 @@
             <th scope="col">Location</th>
             <th scope="col">Type</th>
             <th scope="col">Workers Needed</th>
-            <th scope="col">Start Date</th>
-            <th scope="col">End Date</th>
+            <th scope="col">Start Date/Time</th>
+            <th scope="col">End Date/Time</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -26,8 +28,10 @@
                 <td>{{ service.location }}</td>
                 <td>{{ service.type }}</td>
                 <td>{{ service.workers_needed }}</td>
-                <td>{{ service.start_date.format('YYYY-MM-DD') }}</td>
-                <td>{{ service.end_date.format('YYYY-MM-DD') }}</td>
+                <td>{{ service.start_date.format('MM/DD/YYYY HH:mm A') }}</td>
+                <td>{{ service.end_date.format('MM/DD/YYYY HH:mm A') }}</td>
+                <td><a href="{{ url_for('service.edit', service_id=service.id) }}" class="btn btn-secondary" role="button"><i class="fas fa-pencil-alt"></i></a></td>
+                <td><a href="{{ url_for('service.delete', service_id=service.id) }}" class="btn btn-secondary" role="button"><i class="fas fa-trash-alt"></i></a></td>
             </tr>
         {% endfor %}
         </tbody>

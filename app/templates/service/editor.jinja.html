@@ -3,6 +3,7 @@
 
 {% block head %}
     {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" />
 {% endblock %}
 
 {% block title %}Edit Service{% endblock %}
@@ -13,3 +14,14 @@
     {{ wtf.quick_form(form, form_type='horizontal', horizontal_columns=('lg', 2, 10)) }}
 {% endblock %}
 
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='bower_components/moment/min/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $('#start_date').datetimepicker();
+        $('#end_date').datetimepicker();
+    </script>
+{% endblock %}
