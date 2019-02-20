@@ -16,13 +16,14 @@
             <th scope="col">Workers Needed</th>
             <th scope="col">Start Date/Time</th>
             <th scope="col">End Date/Time</th>
+            <th scope="col">Assign Self</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
         {% for service in services %}
-            <tr>
+            <tr{% if service.id in assigned_to_self %} style="background: #52ce8f;"{% endif %}>
                 <td>{{ service.name }}</td>
                 <td>{{ service.description }}</td>
                 <td>{{ service.location }}</td>
@@ -30,6 +31,15 @@
                 <td>{{ service.workers_needed }}</td>
                 <td>{{ service.start_date.format('MM/DD/YYYY HH:mm A') }}</td>
                 <td>{{ service.end_date.format('MM/DD/YYYY HH:mm A') }}</td>
+                <td>
+                    <a href="{{ url_for('service.assign', service_id=service.id) }}" class="btn btn-secondary" role="button">
+                        {% if service.id in assigned_to_self %}
+                            <i class="fas fa-user-check"></i>
+                        {% else %}
+                            <i class="fas fa-user-alt"></i>
+                        {% endif %}
+                    </a>
+                </td>
                 <td><a href="{{ url_for('service.edit', service_id=service.id) }}" class="btn btn-secondary" role="button"><i class="fas fa-pencil-alt"></i></a></td>
                 <td><a href="{{ url_for('service.delete', service_id=service.id) }}" class="btn btn-secondary" role="button"><i class="fas fa-trash-alt"></i></a></td>
             </tr>
