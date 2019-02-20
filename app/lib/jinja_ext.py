@@ -25,6 +25,20 @@ global__main_navigation = [
         'full_matcher': None,
     },
     {
+        'text': Markup('Services'),
+        'route': "index.index",
+        'route_params': None,
+        'matcher': r'/',
+        'full_matcher': None,
+    },
+    {
+        'text': Markup('Users'),
+        'route': "user.user_list",
+        'route_params': None,
+        'matcher': r'/',
+        'full_matcher': None,
+    },
+    {
         'text': Markup('<i class="fa fa-sign-out" aria-hidden="true"></i> Log Out'),
         'route': 'user.logout',
         'route_params': None,

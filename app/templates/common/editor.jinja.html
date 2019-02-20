@@ -6,10 +6,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" />
 {% endblock %}
 
-{% block title %}Edit Service{% endblock %}
+{% block title %}Edit {{ title }}{% endblock %}
 
 {% block main %}
-    <h1>Enter Service Data</h1>
+    <h1>Enter {{ title }} Data</h1>
     <p class="text-danger">* = Required</p>
     {{ wtf.quick_form(form, form_type='horizontal', horizontal_columns=('lg', 2, 10)) }}
 {% endblock %}

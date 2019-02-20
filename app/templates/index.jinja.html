@@ -24,7 +24,7 @@
         <tbody>
         {% for service in services %}
             {% set service_assigned = service.id in assigned_to_self  %}
-            <tr{% if service_assigned %} style="background: #52ce8f;"{% endif %}>
+            <tr{% if service.workers_assigned == service.workers_needed %} style="background: #dff0d8;"{% endif %}>
                 <td>{{ service.name }}</td>
                 <td>{{ service.description }}</td>
                 <td>{{ service.location }}</td>

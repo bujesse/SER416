@@ -29,10 +29,11 @@ def create():
         db.session.add(new_service)
         db.session.commit()
 
-        flash('Save Successful', 'info')
+        flash('Save Successful', 'success')
         return redirect(url_for('index.index'))
 
-    return render_template("service/editor.jinja.html",
+    return render_template("common/editor.jinja.html",
+                           title='User',
                            form=service_form)
 
 
@@ -51,10 +52,11 @@ def edit(service_id):
         db.session.add(service_obj)
         db.session.commit()
 
-        flash('Save Successful', 'info')
+        flash('Save Successful', 'success')
         return redirect(url_for('index.index'))
 
-    return render_template("service/editor.jinja.html",
+    return render_template("common/editor.jinja.html",
+                           title='User',
                            form=service_form)
 
 
@@ -62,7 +64,7 @@ def edit(service_id):
 def delete(service_id):
     db.session.delete(Service.query.get(service_id))
     db.session.commit()
-    flash('Deletion Successful', 'info')
+    flash('Deletion Successful', 'success')
     return redirect(url_for('index.index'))
 
 
@@ -71,14 +73,14 @@ def assign(service_id):
     assignment = WorkerService.query.filter_by(user_id=current_user.id, service_id=service_id).first()
     if assignment:
         db.session.delete(assignment)
-        flash('Removed Assignment', 'info')
+        flash('Removed Assignment', 'success')
     else:
         new_worker_service = WorkerService(
             service_id=service_id,
             user_id=current_user.id
         )
         db.session.add(new_worker_service)
-        flash('Assignment Successful', 'info')
+        flash('Assignment Successful', 'success')
     db.session.commit()
     return redirect(url_for('index.index'))
 
