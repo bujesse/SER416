@@ -23,17 +23,18 @@
         </thead>
         <tbody>
         {% for service in services %}
-            <tr{% if service.id in assigned_to_self %} style="background: #52ce8f;"{% endif %}>
+            {% set service_assigned = service.id in assigned_to_self  %}
+            <tr{% if service_assigned %} style="background: #52ce8f;"{% endif %}>
                 <td>{{ service.name }}</td>
                 <td>{{ service.description }}</td>
                 <td>{{ service.location }}</td>
                 <td>{{ service.type }}</td>
-                <td>{{ service.workers_needed }}</td>
+                <td>{{ service.workers_assigned }} / {{ service.workers_needed }}</td>
                 <td>{{ service.start_date.format('MM/DD/YYYY HH:mm A') }}</td>
                 <td>{{ service.end_date.format('MM/DD/YYYY HH:mm A') }}</td>
                 <td>
                     <a href="{{ url_for('service.assign', service_id=service.id) }}" class="btn btn-secondary" role="button">
-                        {% if service.id in assigned_to_self %}
+                        {% if service_assigned %}
                             <i class="fas fa-user-check"></i>
                         {% else %}
                             <i class="fas fa-user-alt"></i>

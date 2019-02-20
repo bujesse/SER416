@@ -14,6 +14,10 @@ class Service(db.Model):
     type = db.Column(db.String(255), unique=False, nullable=True)
     workers_needed = db.Column(db.Integer, nullable=False)
 
+    @property
+    def workers_assigned(self):
+        return len(WorkerService.query.filter_by(service_id=self.id).all())
+
 
 class WorkerService(db.Model):
     __tablename__ = 'worker_services'
