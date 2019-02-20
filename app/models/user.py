@@ -20,6 +20,10 @@ class User(db.Model):
     def full_name(self):
         return ' '.join([self.first_name, self.last_name])
 
+    @property
+    def is_admin(self):
+        return self.role == 'admin'
+
     # Required for flask-login
     @property
     def is_authenticated(self):

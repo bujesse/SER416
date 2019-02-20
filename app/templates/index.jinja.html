@@ -4,7 +4,7 @@
     <div class="row">
         <h1 class="col-md-6">Services</h1><br>
     </div>
-    <a href="{{ url_for('service.create') }}" class="btn btn-info" style="float: right;" role="button">Create Service</a>
+    {% if is_admin %}<a href="{{ url_for('service.create') }}" class="btn btn-info" style="float: right;" role="button">Create Service</a>{% endif %}
 
     <table class="table table-bordered table-striped media-table">
         <thead>
@@ -13,23 +13,25 @@
             <th scope="col">Description</th>
             <th scope="col">Location</th>
             <th scope="col">Type</th>
-            <th scope="col">Workers Needed</th>
+            {% if is_admin %}<th scope="col">Workers Needed</th>{% endif %}
+            <th scope="col">Members Signed Up</th>
             <th scope="col">Start Date/Time</th>
             <th scope="col">End Date/Time</th>
             <th scope="col">Assign Self</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
+            {% if is_admin %}<th scope="col">Edit</th>{% endif %}
+            {% if is_admin %}<th scope="col">Delete</th>{% endif %}
         </tr>
         </thead>
         <tbody>
         {% for service in services %}
             {% set service_assigned = service.id in assigned_to_self  %}
-            <tr{% if service.workers_assigned == service.workers_needed %} style="background: #dff0d8;"{% endif %}>
+            <tr{% if service.is_available %} style="background: #dff0d8;"{% endif %}>
                 <td>{{ service.name }}</td>
                 <td>{{ service.description }}</td>
                 <td>{{ service.location }}</td>
                 <td>{{ service.type }}</td>
-                <td>{{ service.workers_assigned }} / {{ service.workers_needed }}</td>
+                {% if is_admin %}<td>{{ service.workers_assigned }} / {{ service.workers_needed }}</td>{% endif %}
+                <td>{{ service.users_signed_up }}</td>
                 <td>{{ service.start_date.format('MM/DD/YYYY HH:mm A') }}</td>
                 <td>{{ service.end_date.format('MM/DD/YYYY HH:mm A') }}</td>
                 <td>
@@ -41,10 +43,21 @@
                         {% endif %}
                     </a>
                 </td>
-                <td><a href="{{ url_for('service.edit', service_id=service.id) }}" class="btn btn-secondary" role="button"><i class="fas fa-pencil-alt"></i></a></td>
-                <td><a href="{{ url_for('service.delete', service_id=service.id) }}" class="btn btn-secondary" role="button"><i class="fas fa-trash-alt"></i></a></td>
+                {% if is_admin %}<td><a href="{{ url_for('service.edit', service_id=service.id) }}" class="btn btn-secondary" role="button"><i class="fas fa-pencil-alt"></i></a></td>{% endif %}
+                {% if is_admin %}<td><a href="{{ url_for('service.delete', service_id=service.id) }}" class="btn btn-secondary" role="button"><i class="fas fa-trash-alt"></i></a></td>{% endif %}
             </tr>
         {% endfor %}
         </tbody>
     </table>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        {% if is_admin %}
+            window.is_admin = true;
+        {% else %}
+            window.is_admin = false;
+        {% endif %}
+    </script>
+    {{ super() }}
 {% endblock %}

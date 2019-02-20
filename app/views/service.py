@@ -7,10 +7,9 @@ from flask import (
 )
 from flask_login import login_required, current_user
 import arrow
-import pymysql
 
 from app.main import db
-from app.models.bcs import Service, WorkerService
+from app.models.bcs import Service, WorkerService, ClientService
 from app.forms.service import ServiceForm
 
 blueprint = Blueprint('service', __name__)
@@ -70,17 +69,28 @@ def delete(service_id):
 
 @blueprint.route('/assign/<service_id>', methods=['GET'])
 def assign(service_id):
-    assignment = WorkerService.query.filter_by(user_id=current_user.id, service_id=service_id).first()
+    if current_user.is_admin:
+        assignment = WorkerService.query.filter_by(user_id=current_user.id, service_id=service_id).first()
+    else:
+        assignment = ClientService.query.filter_by(user_id=current_user.id, service_id=service_id).first()
+
     if assignment:
         db.session.delete(assignment)
         flash('Removed Assignment', 'success')
     else:
-        new_worker_service = WorkerService(
-            service_id=service_id,
-            user_id=current_user.id
-        )
-        db.session.add(new_worker_service)
+        if current_user.is_admin:
+            new_user_service = WorkerService(
+                service_id=service_id,
+                user_id=current_user.id
+            )
+        else:
+            new_user_service = ClientService(
+                service_id=service_id,
+                user_id=current_user.id
+            )
+        db.session.add(new_user_service)
         flash('Assignment Successful', 'success')
+
     db.session.commit()
     return redirect(url_for('index.index'))
 

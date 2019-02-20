@@ -25,14 +25,14 @@ global__main_navigation = [
         'full_matcher': None,
     },
     {
-        'text': Markup('Services'),
+        'text': Markup('<div class="admin-required">Services</div>'),
         'route': "index.index",
         'route_params': None,
         'matcher': r'/',
         'full_matcher': None,
     },
     {
-        'text': Markup('Users'),
+        'text': Markup('<div class="admin-required">Users</div>'),
         'route': "user.user_list",
         'route_params': None,
         'matcher': r'/',

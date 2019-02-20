@@ -18,6 +18,14 @@ class Service(db.Model):
     def workers_assigned(self):
         return len(WorkerService.query.filter_by(service_id=self.id).all())
 
+    @property
+    def is_available(self):
+        return self.workers_assigned == self.workers_needed
+
+    @property
+    def users_signed_up(self):
+        return len(ClientService.query.filter_by(service_id=self.id).all())
+
 
 class WorkerService(db.Model):
     __tablename__ = 'worker_services'

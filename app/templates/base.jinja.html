@@ -30,3 +30,9 @@
     </div>
     {{ super() }}
 {% endblock content %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='nav.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
+{% endblock %}
