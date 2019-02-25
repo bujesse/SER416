@@ -25,7 +25,7 @@ global__main_navigation = [
         'full_matcher': None,
     },
     {
-        'text': Markup('<div class="admin-required">Services</div>'),
+        'text': Markup('Services'),
         'route': "index.index",
         'route_params': None,
         'matcher': r'/',
@@ -34,6 +34,20 @@ global__main_navigation = [
     {
         'text': Markup('<div class="admin-required">Users</div>'),
         'route': "user.user_list",
+        'route_params': None,
+        'matcher': r'/',
+        'full_matcher': None,
+    },
+    {
+        'text': Markup('My Profile'),
+        'route': "user.user_list",
+        'route_params': None,
+        'matcher': r'/',
+        'full_matcher': None,
+    },
+    {
+        'text': Markup('Donate'),
+        'route': "user.donate",
         'route_params': None,
         'matcher': r'/',
         'full_matcher': None,

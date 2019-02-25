@@ -10,6 +10,7 @@ from flask_login import login_user, logout_user, current_user
 from app.main import db
 from app.models.user import User
 from app.forms.user import UserForm
+from app.forms.donate import DonationForm
 
 from app.services.auth import (
     AuthenticationError,
@@ -106,9 +107,18 @@ def delete(user_id):
     return redirect(url_for('user.user_list'))
 
 
-@blueprint.route('/profile/<user_id>', methods=['POST'])
-def profile(user_id):
+@blueprint.route('/profile', methods=['POST'])
+def profile():
     return render_template('user/profile.jinja.html')
+
+
+@blueprint.route('/donate', methods=['GET', 'POST'])
+def donate():
+    form = DonationForm()
+    if form.validate_on_submit():
+        flash('Donation Successful - Thank you!')
+        return redirect(url_for('index.index'))
+    return render_template('user/donate.jinja.html', form=form)
 
 
 @blueprint.route('/logout', methods=['GET'])

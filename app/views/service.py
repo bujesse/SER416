@@ -32,7 +32,7 @@ def create():
         return redirect(url_for('index.index'))
 
     return render_template("common/editor.jinja.html",
-                           title='User',
+                           title='Service',
                            form=service_form)
 
 
@@ -55,7 +55,7 @@ def edit(service_id):
         return redirect(url_for('index.index'))
 
     return render_template("common/editor.jinja.html",
-                           title='User',
+                           title='Service',
                            form=service_form)
 
 
