@@ -32,7 +32,7 @@ global__main_navigation = [
         'full_matcher': None,
     },
     {
-        'text': Markup('<div class="admin-required">Users</div>'),
+        'text': Markup('Users'),
         'route': "user.user_list",
         'route_params': None,
         'matcher': r'/',

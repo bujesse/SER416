@@ -9,7 +9,7 @@ from flask import (
 from flask_login import login_user, logout_user, current_user
 from app.main import db
 from app.models.user import User
-from app.forms.user import UserForm
+from app.forms.user import UserForm, UserFormNonAdmin
 from app.forms.donate import DonationForm
 
 from app.services.auth import (
@@ -59,7 +59,7 @@ def user_list():
 
 @blueprint.route('/create', methods=['GET', 'POST'])
 def create():
-    form = UserForm()
+    form = UserFormNonAdmin() if current_user.is_anonymous else UserForm()
     if form.validate_on_submit():
         new_user = User()
         form.populate_obj(new_user)
@@ -79,7 +79,7 @@ def create():
 @blueprint.route('/edit/<user_id>', methods=['GET', 'POST'])
 def edit(user_id):
     user_obj = User.query.get(user_id)
-    user_form = UserForm(obj=user_obj)
+    user_form = UserForm(obj=user_obj) if current_user.is_admin else UserFormNonAdmin(obj=user_obj)
 
     if user_form.validate_on_submit():
         if not user_form.data['password']:
